@@ -13,27 +13,14 @@ import LeadTable from '../components/leads/LeadTable';
 import SearchBar from '../components/common/SearchBar';
 import FilterBar from '../components/common/FilterBar';
 import EmptyState from '../components/common/EmptyState';
+// Import the shared leads context hook (single source of truth)
+import { useLeads } from '../context/LeadsContext';
 
 /**
  * Ordered list of CRM pipeline status filter options.
  * @type {string[]}
  */
 const STATUS_OPTIONS = ['All', 'New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Won', 'Lost'];
-
-/**
- * Initial sample leads dataset — will be replaced with API data in Phase 8.
- * @type {Array<Object>}
- */
-const initialLeads = [
-  { id: 1,  name: 'Sarah Connor',    company: 'Cyberdyne Systems', email: 'sarah@cyberdyne.co',    phone: '+1 555-0101', status: 'Proposal Sent',     source: 'LinkedIn',        date: '2026-06-15' },
-  { id: 2,  name: 'Bruce Wayne',     company: 'Wayne Enterprises', email: 'bruce@wayne.co',        phone: '+1 555-0102', status: 'Contacted',         source: 'Referral',        date: '2026-06-14' },
-  { id: 3,  name: 'Tony Stark',      company: 'Stark Industries',  email: 'tony@stark.co',         phone: '+1 555-0103', status: 'Won',               source: 'Website',         date: '2026-06-12' },
-  { id: 4,  name: 'Clark Kent',      company: 'Daily Planet',      email: 'clark@dailyplanet.co',  phone: '',            status: 'New',               source: 'Cold Call',       date: '2026-06-11' },
-  { id: 5,  name: 'Selina Kyle',     company: 'Gotham Jewels',     email: 'selina@kyle.co',        phone: '+1 555-0105', status: 'Lost',              source: 'Email Campaign',  date: '2026-06-10' },
-  { id: 6,  name: 'Barry Allen',     company: 'S.T.A.R. Labs',     email: 'barry@starlabs.co',     phone: '+1 555-0106', status: 'Meeting Scheduled', source: 'Referral',        date: '2026-06-08' },
-  { id: 7,  name: 'Diana Prince',    company: 'Themyscira Corp',   email: 'diana@themyscira.co',   phone: '+1 555-0107', status: 'Contacted',         source: 'LinkedIn',        date: '2026-06-07' },
-  { id: 8,  name: 'Peter Parker',    company: 'Parker Labs',       email: 'peter@parkerlabs.co',   phone: '',            status: 'New',               source: 'Website',         date: '2026-06-06' },
-];
 
 /**
  * LeadManagement — The primary CRUD page for managing CRM leads.
@@ -50,9 +37,10 @@ const initialLeads = [
  * @returns {JSX.Element} The rendered LeadManagement page.
  */
 export default function LeadManagement() {
-  // ---- State hooks ----
-  // Active leads array
-  const [leads, setLeads] = useState(initialLeads);
+  // ---- Shared leads state from context ----
+  const { leads, addLead, updateLead, deleteLead } = useLeads();
+
+  // ---- Local UI state ----
   // Search input value
   const [searchQuery, setSearchQuery] = useState('');
   // Active filter state
@@ -111,25 +99,14 @@ export default function LeadManagement() {
   const handleFormSubmit = (formData) => {
     if (selectedLead) {
       // ---- UPDATE existing lead ----
-      setLeads((prev) =>
-        prev.map((lead) =>
-          lead.id === selectedLead.id
-            ? { ...lead, ...formData }
-            : lead
-        )
-      );
+      updateLead(selectedLead.id, formData);
       toast.success(`${formData.name} updated successfully`, {
         style: { background: '#0f172a', color: '#e2e8f0', border: '1px solid #1e293b' },
         iconTheme: { primary: '#22c55e', secondary: '#0f172a' },
       });
     } else {
       // ---- CREATE new lead ----
-      const newLead = {
-        id: Date.now(),
-        ...formData,
-        date: new Date().toISOString().split('T')[0],
-      };
-      setLeads((prev) => [newLead, ...prev]);
+      addLead(formData);
       toast.success(`${formData.name} added to pipeline`, {
         style: { background: '#0f172a', color: '#e2e8f0', border: '1px solid #1e293b' },
         iconTheme: { primary: '#22c55e', secondary: '#0f172a' },
@@ -152,7 +129,7 @@ export default function LeadManagement() {
    */
   const handleDelete = (id) => {
     const lead = leads.find((l) => l.id === id);
-    setLeads((prev) => prev.filter((l) => l.id !== id));
+    deleteLead(id);
     toast.success(`${lead?.name || 'Lead'} removed from pipeline`, {
       style: { background: '#0f172a', color: '#e2e8f0', border: '1px solid #1e293b' },
       iconTheme: { primary: '#ef4444', secondary: '#0f172a' },
