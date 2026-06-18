@@ -22,11 +22,11 @@ import { GitBranch } from 'lucide-react';
 export default function PipelineOverview({ leads = [] }) {
   // Define the ordered pipeline stages with display labels and matching Tailwind colour classes
   const stages = [
-    { key: 'New',       label: 'New',       barColor: 'bg-blue-500',    dotColor: 'bg-blue-500',    textColor: 'text-blue-400' },
-    { key: 'Contacted', label: 'Contacted',  barColor: 'bg-indigo-500',  dotColor: 'bg-indigo-500',  textColor: 'text-indigo-400' },
-    { key: 'Proposal',  label: 'Proposal',   barColor: 'bg-amber-500',   dotColor: 'bg-amber-500',   textColor: 'text-amber-400' },
-    { key: 'Won',       label: 'Won',        barColor: 'bg-emerald-500', dotColor: 'bg-emerald-500', textColor: 'text-emerald-400' },
-    { key: 'Lost',      label: 'Lost',       barColor: 'bg-red-500',     dotColor: 'bg-red-500',     textColor: 'text-red-400' },
+    { key: 'New',       label: 'New',       barColor: 'bg-blue-500',    dotColor: 'bg-blue-500',    textColor: 'text-blue-600 dark:text-blue-400' },
+    { key: 'Contacted', label: 'Contacted',  barColor: 'bg-indigo-500',  dotColor: 'bg-indigo-500',  textColor: 'text-indigo-600 dark:text-indigo-400' },
+    { key: 'Proposal',  label: 'Proposal',   barColor: 'bg-amber-500',   dotColor: 'bg-amber-500',   textColor: 'text-amber-600 dark:text-amber-400' },
+    { key: 'Won',       label: 'Won',        barColor: 'bg-emerald-500', dotColor: 'bg-emerald-500', textColor: 'text-emerald-600 dark:text-emerald-400' },
+    { key: 'Lost',      label: 'Lost',       barColor: 'bg-red-500',     dotColor: 'bg-red-500',     textColor: 'text-red-600 dark:text-red-400' },
   ];
 
   // Total number of leads for percentage calculation
@@ -40,24 +40,24 @@ export default function PipelineOverview({ leads = [] }) {
 
   return (
     // Card wrapper matching the dark glassmorphism theme used across the dashboard
-    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/40 p-6 backdrop-blur-sm">
+    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-colors duration-200">
       {/* Card header row */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
         <div>
           {/* Section title */}
-          <h2 className="text-lg font-bold text-white">Pipeline Overview</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">Pipeline Overview</h2>
           {/* Subtitle */}
-          <p className="text-xs text-slate-400">Current lead distribution by status</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">Current lead distribution by status</p>
         </div>
         {/* Decorative badge */}
-        <div className="flex items-center gap-2 rounded-lg bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-300">
-          <GitBranch className="h-3.5 w-3.5 text-blue-500" />
+        <div className="flex items-center gap-2 rounded-lg bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-400">
+          <GitBranch className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
           <span>{total} Total</span>
         </div>
       </div>
 
       {/* Horizontal stacked bar */}
-      <div className="mt-6 flex h-4 w-full overflow-hidden rounded-full bg-slate-800">
+      <div className="mt-6 flex h-4 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
         {countByStage.map(
           (stage) =>
             // Only render visible segments (count > 0)
@@ -75,17 +75,17 @@ export default function PipelineOverview({ leads = [] }) {
       {/* Legend row with counts */}
       <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         {countByStage.map((stage) => (
-          <div key={stage.key} className="flex items-center gap-2 rounded-lg border border-slate-800/60 bg-slate-900/40 px-3 py-2">
+          <div key={stage.key} className="flex items-center gap-2 rounded-lg border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50 px-3 py-2">
             {/* Colour dot indicator */}
             <span className={`h-2.5 w-2.5 rounded-full ${stage.dotColor}`} />
             <div className="flex flex-col">
               {/* Stage label */}
-              <span className="text-[11px] font-medium text-slate-400">{stage.label}</span>
+              <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400">{stage.label}</span>
               {/* Count and percentage */}
               <span className={`text-sm font-bold ${stage.textColor}`}>
                 {stage.count}
                 {total > 0 && (
-                  <span className="ml-1 text-[10px] font-normal text-slate-500">
+                  <span className="ml-1 text-[10px] font-normal text-gray-400 dark:text-gray-500">
                     ({Math.round((stage.count / total) * 100)}%)
                   </span>
                 )}

@@ -12,9 +12,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Declare page tab title text -->
     <title>Startup CRM Lite</title>
+    <!-- Blocking script to apply dark mode classes immediately and prevent visual theme flash -->
+    <script>
+      (function() {
+        try {
+          const isDark = localStorage.getItem('darkMode') === 'true';
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {
+          console.error('Failed to read theme preference:', e);
+        }
+      })();
+    </script>
   </head>
   <!-- Open the body container with styling matching our CRM theme -->
-  <body class="bg-slate-950 text-slate-100">
+  <body class="bg-gray-50 text-gray-900">
     <!-- Define the root element for React rendering mount -->
     <div id="root"></div>
     <!-- Load the main entry JSX React script as a module -->

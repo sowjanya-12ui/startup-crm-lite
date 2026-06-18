@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 // Import Lucide icons used for KPI cards and header UI
 import { Users, DollarSign, Award, TrendingUp, Plus, Activity } from 'lucide-react';
+// Import theme context
+import { useTheme } from '../context/ThemeContext';
 
 // Import modular dashboard sub-components
 import StatsCard from '../components/dashboard/StatsCard';
@@ -71,22 +73,24 @@ const statsConfig = [
  * @returns {JSX.Element} The rendered Dashboard page.
  */
 export default function Dashboard() {
+  const { isDarkMode } = useTheme();
+
   return (
     // Outer layout wrapper with dark background and responsive padding
-    <div className="min-h-screen bg-slate-950 px-4 py-8 text-slate-100 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-8 text-gray-900 dark:text-white sm:px-6 lg:px-8 transition-colors duration-200">
+      <div className="w-full">
 
         {/* =============================================================== */}
         {/* HEADER — Title, subtitle, and primary CTA                      */}
         {/* =============================================================== */}
-        <div className="flex flex-col justify-between gap-4 border-b border-slate-800 pb-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-6 sm:flex-row sm:items-center">
           <div>
             {/* Page heading */}
-            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
               CRM Dashboard
             </h1>
             {/* Subtitle */}
-            <p className="mt-2 text-sm text-slate-400">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Real-time monitoring of your startup's sales pipeline and conversion analytics.
             </p>
           </div>
@@ -122,17 +126,17 @@ export default function Dashboard() {
         <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
 
           {/* Pipeline Activity area chart (spans 2 of 3 columns on lg) */}
-          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/40 p-6 backdrop-blur-sm lg:col-span-2">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm lg:col-span-2 transition-colors duration-200">
+            <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
               <div>
                 {/* Chart title */}
-                <h2 className="text-lg font-bold text-white">Pipeline Activity</h2>
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white">Pipeline Activity</h2>
                 {/* Chart description */}
-                <p className="text-xs text-slate-400">Total pipeline vs actual won deals (USD)</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Total pipeline vs actual won deals (USD)</p>
               </div>
               {/* Performance badge */}
-              <div className="flex items-center gap-2 rounded-lg bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-300">
-                <Activity className="h-3.5 w-3.5 text-blue-500" />
+              <div className="flex items-center gap-2 rounded-lg bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-400">
+                <Activity className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
                 <span>Monthly Growth</span>
               </div>
             </div>
@@ -153,16 +157,20 @@ export default function Dashboard() {
                     </linearGradient>
                   </defs>
                   {/* Subtle horizontal grid lines */}
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#374151' : '#f1f5f9'} vertical={false} />
                   {/* X axis — months */}
-                  <XAxis dataKey="month" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
+                  <XAxis dataKey="month" stroke={isDarkMode ? '#9ca3af' : '#64748b'} fontSize={11} tickLine={false} axisLine={false} />
                   {/* Y axis — dollar values */}
-                  <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke={isDarkMode ? '#9ca3af' : '#64748b'} fontSize={11} tickLine={false} axisLine={false} />
                   {/* Styled tooltip */}
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }}
-                    labelStyle={{ color: '#fff', fontWeight: 'bold' }}
-                    itemStyle={{ color: '#94a3b8' }}
+                    contentStyle={{
+                      backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
+                      borderColor: isDarkMode ? '#374151' : '#e2e8f0',
+                      borderRadius: '12px'
+                    }}
+                    labelStyle={{ color: isDarkMode ? '#ffffff' : '#0f172a', fontWeight: 'bold' }}
+                    itemStyle={{ color: isDarkMode ? '#d1d5db' : '#475569' }}
                   />
                   {/* Pipeline area curve */}
                   <Area type="monotone" dataKey="pipeline" stroke="#2563eb" strokeWidth={2} fillOpacity={1} fill="url(#colorPipeline)" name="Pipeline" />

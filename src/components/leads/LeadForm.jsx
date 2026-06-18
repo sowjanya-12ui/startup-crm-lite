@@ -98,9 +98,9 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
   // Shared Tailwind class string for all text inputs
   const inputBaseClass =
-    'mt-1.5 block w-full rounded-xl border bg-slate-950 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-600 transition-colors focus:outline-none focus:ring-1';
-  const inputNormalBorder = 'border-slate-800 focus:border-blue-500 focus:ring-blue-500';
-  const inputErrorBorder  = 'border-red-500/60 focus:border-red-500 focus:ring-red-500';
+    'mt-1.5 block w-full rounded-xl border bg-white dark:bg-gray-900 px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors focus:outline-none focus:ring-1';
+  const inputNormalBorder = 'border-gray-300 dark:border-gray-700 focus:border-blue-500 focus:ring-blue-500';
+  const inputErrorBorder  = 'border-red-400 dark:border-red-500/50 focus:border-red-500 focus:ring-red-500';
 
   return (
     // Form element — prevents default and delegates to custom handler
@@ -108,8 +108,8 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Name field ---- */}
       <div>
-        <label htmlFor="lead-name" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Lead Name <span className="text-red-400">*</span>
+        <label htmlFor="lead-name" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          Lead Name <span className="text-red-500">*</span>
         </label>
         <input
           id="lead-name"
@@ -128,8 +128,8 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Company field ---- */}
       <div>
-        <label htmlFor="lead-company" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Company <span className="text-red-400">*</span>
+        <label htmlFor="lead-company" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          Company <span className="text-red-500">*</span>
         </label>
         <input
           id="lead-company"
@@ -148,8 +148,8 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Email field ---- */}
       <div>
-        <label htmlFor="lead-email" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Email Address <span className="text-red-400">*</span>
+        <label htmlFor="lead-email" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          Email Address <span className="text-red-500">*</span>
         </label>
         <input
           id="lead-email"
@@ -168,7 +168,7 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Phone field (optional) ---- */}
       <div>
-        <label htmlFor="lead-phone" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <label htmlFor="lead-phone" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
           Phone
         </label>
         <input
@@ -185,46 +185,46 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* Status dropdown */}
         <div>
-          <label htmlFor="lead-status" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label htmlFor="lead-status" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             Status
           </label>
           <select
             id="lead-status"
             value={formData.status}
             onChange={handleChange('status')}
-            className="mt-1.5 block w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-300 transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="mt-1.5 block w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3.5 py-2.5 text-sm text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
             {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>{s}</option>
+              <option key={s} value={s} className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">{s}</option>
             ))}
           </select>
         </div>
 
         {/* Source dropdown */}
         <div>
-          <label htmlFor="lead-source" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label htmlFor="lead-source" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             Source
           </label>
           <select
             id="lead-source"
             value={formData.source}
             onChange={handleChange('source')}
-            className="mt-1.5 block w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-300 transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="mt-1.5 block w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3.5 py-2.5 text-sm text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
             {SOURCE_OPTIONS.map((s) => (
-              <option key={s} value={s}>{s}</option>
+              <option key={s} value={s} className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">{s}</option>
             ))}
           </select>
         </div>
       </div>
 
       {/* ---- Action buttons ---- */}
-      <div className="mt-6 flex justify-end gap-3 border-t border-slate-800 pt-4">
+      <div className="mt-6 flex justify-end gap-3 border-t border-gray-200 dark:border-gray-700 pt-4">
         {/* Cancel / Close button */}
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-sm font-semibold text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-colors"
+          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
         >
           Cancel
         </button>

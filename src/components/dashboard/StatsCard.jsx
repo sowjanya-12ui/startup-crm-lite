@@ -31,11 +31,11 @@ import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 export default function StatsCard({ title, value, icon: Icon, change, color = 'blue' }) {
   // Map color keys to Tailwind utility class fragments for icon container and text
   const colorMap = {
-    blue:    { bg: 'bg-blue-500/10',    text: 'text-blue-500' },
-    indigo:  { bg: 'bg-indigo-500/10',  text: 'text-indigo-400' },
-    emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-400' },
-    amber:   { bg: 'bg-amber-500/10',   text: 'text-amber-400' },
-    red:     { bg: 'bg-red-500/10',     text: 'text-red-400' },
+    blue:    { bg: 'bg-blue-50 dark:bg-blue-950/40',    text: 'text-blue-600 dark:text-blue-400' },
+    indigo:  { bg: 'bg-indigo-50 dark:bg-indigo-950/40',  text: 'text-indigo-600 dark:text-indigo-400' },
+    emerald: { bg: 'bg-emerald-50 dark:bg-emerald-950/40', text: 'text-emerald-600 dark:text-emerald-400' },
+    amber:   { bg: 'bg-amber-50 dark:bg-amber-950/40',   text: 'text-amber-600 dark:text-amber-400' },
+    red:     { bg: 'bg-red-50 dark:bg-red-950/40',     text: 'text-red-600 dark:text-red-400' },
   };
 
   // Resolve color classes for current theme, fallback to blue
@@ -46,14 +46,14 @@ export default function StatsCard({ title, value, icon: Icon, change, color = 'b
 
   return (
     // Card container with glass-morphism dark theme, hover lift animation
-    <div className="group relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/50 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-700/80 hover:bg-slate-900/80">
+    <div className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md transition-colors">
       {/* Top row: metric info left, icon right */}
       <div className="flex items-center justify-between">
         <div>
           {/* Metric title label */}
-          <p className="text-sm font-medium text-slate-400">{title}</p>
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
           {/* Large metric value */}
-          <p className="mt-2.5 text-3xl font-bold text-white">{value}</p>
+          <p className="mt-2.5 text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
         </div>
         {/* Themed icon container with scale-up on card hover */}
         <div
@@ -67,7 +67,7 @@ export default function StatsCard({ title, value, icon: Icon, change, color = 'b
       {/* Bottom row: percentage change indicator */}
       <div
         className={`mt-4 flex items-center gap-1.5 text-xs font-semibold ${
-          isPositive ? 'text-emerald-400' : 'text-red-400'
+          isPositive ? 'text-emerald-600 dark:text-emerald-450' : 'text-red-600 dark:text-red-400'
         }`}
       >
         {/* Directional arrow icon based on change polarity */}
@@ -82,7 +82,7 @@ export default function StatsCard({ title, value, icon: Icon, change, color = 'b
           {change}%
         </span>
         {/* Context label */}
-        <span className="font-normal text-slate-500">from last month</span>
+        <span className="font-normal text-gray-500 dark:text-gray-400">from last month</span>
       </div>
     </div>
   );

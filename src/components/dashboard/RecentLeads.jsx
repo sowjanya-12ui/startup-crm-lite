@@ -31,30 +31,30 @@ export default function RecentLeads({ leads = [] }) {
    */
   const getStatusClasses = (status) => {
     const map = {
-      New:       'bg-blue-500/10 text-blue-400 border-blue-500/20',
-      Contacted: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-      Proposal:  'bg-amber-500/10 text-amber-400 border-amber-500/20',
-      Won:       'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-      Lost:      'bg-red-500/10 text-red-400 border-red-500/20',
+      New:       'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800/50',
+      Contacted: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-800/50',
+      Proposal:  'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800/50',
+      Won:       'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/50',
+      Lost:      'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-400 dark:border-red-800/50',
     };
-    return map[status] || 'bg-slate-800 text-slate-400 border-slate-700';
+    return map[status] || 'bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700';
   };
 
   return (
     // Card wrapper matching the dark glassmorphism dashboard theme
-    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/40 p-6 backdrop-blur-sm">
+    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-colors duration-200">
       {/* Card header row */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
         <div>
           {/* Section title */}
-          <h2 className="text-lg font-bold text-white">Recent Leads</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">Recent Leads</h2>
           {/* Subtitle */}
-          <p className="text-xs text-slate-400">Newly captured contacts</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">Newly captured contacts</p>
         </div>
         {/* Quick link to the full leads list */}
         <Link
           to="/leads"
-          className="text-xs font-semibold text-blue-500 hover:text-blue-400 transition-colors"
+          className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
         >
           View all
         </Link>
@@ -65,17 +65,17 @@ export default function RecentLeads({ leads = [] }) {
         <table className="w-full min-w-[480px]">
           {/* Table header */}
           <thead>
-            <tr className="border-b border-slate-800/60">
-              <th className="pb-3 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            <tr className="border-b border-gray-100 dark:border-gray-700">
+              <th className="pb-3 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                 Name
               </th>
-              <th className="pb-3 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <th className="pb-3 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                 Company
               </th>
-              <th className="pb-3 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <th className="pb-3 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                 Status
               </th>
-              <th className="pb-3 text-right text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <th className="pb-3 text-right text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                 Date Added
               </th>
             </tr>
@@ -86,15 +86,15 @@ export default function RecentLeads({ leads = [] }) {
             {recentFive.map((lead, index) => (
               <tr
                 key={lead.id ?? index}
-                className="border-b border-slate-800/30 transition-colors duration-200 hover:bg-slate-900/60"
+                className="border-b border-gray-100 dark:border-gray-700 transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-900/40"
               >
                 {/* Lead name */}
                 <td className="py-3.5 pr-4">
-                  <span className="text-sm font-semibold text-white">{lead.name}</span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-white">{lead.name}</span>
                 </td>
                 {/* Company name */}
                 <td className="py-3.5 pr-4">
-                  <span className="text-sm text-slate-400">{lead.company}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{lead.company}</span>
                 </td>
                 {/* Status badge */}
                 <td className="py-3.5 pr-4">
@@ -108,7 +108,7 @@ export default function RecentLeads({ leads = [] }) {
                 </td>
                 {/* Date added */}
                 <td className="py-3.5 text-right">
-                  <span className="text-xs text-slate-500">{lead.date}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">{lead.date}</span>
                 </td>
               </tr>
             ))}
@@ -116,7 +116,7 @@ export default function RecentLeads({ leads = [] }) {
             {/* Empty state when no leads exist */}
             {recentFive.length === 0 && (
               <tr>
-                <td colSpan={4} className="py-8 text-center text-sm text-slate-500">
+                <td colSpan={4} className="py-8 text-center text-sm text-gray-500">
                   No leads yet — add your first lead to get started.
                 </td>
               </tr>

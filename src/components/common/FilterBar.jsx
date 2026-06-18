@@ -37,10 +37,10 @@ export default function FilterBar({ activeFilter, onFilterChange, leads }) {
             key={filter}
             type="button"
             onClick={() => onFilterChange(filter)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 cursor-pointer ${
               isActive
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-slate-100'
+                : 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
             }`}
             aria-label={`Filter by ${filter}`}
             aria-pressed={isActive}

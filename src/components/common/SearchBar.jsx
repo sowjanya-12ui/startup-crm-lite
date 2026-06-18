@@ -42,7 +42,7 @@ export default function SearchBar({ value, onChange }) {
     <div className="relative flex-1 max-w-md">
       {/* Search icon */}
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-        <Search className="h-4 w-4 text-slate-500" />
+        <Search className="h-4 w-4 text-gray-400 dark:text-gray-500" />
       </div>
 
       {/* Search input */}
@@ -52,7 +52,7 @@ export default function SearchBar({ value, onChange }) {
         value={localValue}
         onChange={(e) => setLocalValue(e.target.value)}
         aria-label="Search leads"
-        className="block w-full rounded-xl border border-slate-800 bg-slate-950 py-2.5 pl-10 pr-10 text-sm text-slate-100 placeholder-slate-500 transition-all duration-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="block w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 py-2.5 pl-10 pr-10 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
       />
 
       {/* Clear button - shows only when there is text */}
@@ -61,7 +61,7 @@ export default function SearchBar({ value, onChange }) {
           type="button"
           onClick={handleClear}
           aria-label="Clear search"
-          className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 hover:text-slate-300 transition-colors"
+          className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors cursor-pointer"
         >
           <X className="h-4 w-4" />
         </button>

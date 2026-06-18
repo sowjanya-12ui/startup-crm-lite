@@ -16,7 +16,7 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 function RouteLoader() {
   return (
     // Centered loading viewport wrapper
-    <div className="flex min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-center bg-slate-950 text-slate-100">
+    <div className="flex min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-center bg-gray-50 text-gray-900">
       <div className="flex flex-col items-center gap-4">
         {/* Animated glowing double ring spinner */}
         <div className="relative h-12 w-12">
@@ -26,7 +26,7 @@ function RouteLoader() {
           <div className="absolute inset-0 rounded-full border-4 border-t-blue-500 animate-spin"></div>
         </div>
         {/* Loading text with pulse effect */}
-        <span className="text-sm font-semibold tracking-wider text-slate-400 animate-pulse">
+        <span className="text-sm font-semibold tracking-wider text-gray-500 animate-pulse">
           Loading Workspace...
         </span>
       </div>

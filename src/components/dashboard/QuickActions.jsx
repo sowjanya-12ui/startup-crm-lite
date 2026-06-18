@@ -32,11 +32,11 @@ export default function QuickActions() {
 
   return (
     // Card wrapper matching the dark glassmorphism dashboard theme
-    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/40 p-6 backdrop-blur-sm">
+    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-colors duration-200">
       {/* Card header */}
-      <div className="border-b border-slate-800 pb-4">
-        <h2 className="text-lg font-bold text-white">Quick Actions</h2>
-        <p className="text-xs text-slate-400">Frequently used shortcuts</p>
+      <div className="border-b border-gray-100 dark:border-gray-700 pb-4">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white">Quick Actions</h2>
+        <p className="text-xs text-gray-500 dark:text-gray-400">Frequently used shortcuts</p>
       </div>
 
       {/* Action buttons grid — stacks on mobile, row on sm+ */}
@@ -55,7 +55,7 @@ export default function QuickActions() {
         <Link
           to="/leads"
           id="quick-action-view-leads"
-          className="flex items-center justify-center gap-2.5 rounded-xl border border-slate-700/60 bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-200 transition-all duration-300 hover:bg-slate-700 hover:border-slate-600 hover:-translate-y-0.5 active:translate-y-0"
+          className="flex items-center justify-center gap-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 hover:-translate-y-0.5 active:translate-y-0"
         >
           <Eye className="h-4.5 w-4.5" />
           <span>View All Leads</span>
@@ -66,7 +66,7 @@ export default function QuickActions() {
           type="button"
           onClick={handleExport}
           id="quick-action-export"
-          className="flex items-center justify-center gap-2.5 rounded-xl border border-slate-700/60 bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-200 transition-all duration-300 hover:bg-slate-700 hover:border-slate-600 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+          className="flex items-center justify-center gap-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
         >
           <Download className="h-4.5 w-4.5" />
           <span>Export Data</span>
