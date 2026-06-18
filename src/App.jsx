@@ -8,25 +8,30 @@ import { Toaster } from 'react-hot-toast';
 import Sidebar from './components/Sidebar';
 // Import the routes mapping definitions component
 import AppRoutes from './routes';
+// Import the leads context provider supplying shared CRM data to all pages
+import { LeadsProvider } from './context/LeadsContext';
 
 // Define the root App component function
 function App() {
   return (
     // Wrap entire DOM tree inside BrowserRouter to activate client-side routing logic
     <BrowserRouter>
-      {/* Primary styling wrapper setting a responsive flex layout: stack on mobile, row on desktop */}
-      <div className="flex flex-col md:flex-row min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-blue-500/30">
-        
-        {/* Render vertical responsive Sidebar navigation on the left */}
-        <Sidebar />
+      {/* Provide shared leads state to every page (Lead Management + Analytics) */}
+      <LeadsProvider>
+        {/* Primary styling wrapper setting a responsive flex layout: stack on mobile, row on desktop */}
+        <div className="flex flex-col md:flex-row min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-blue-500/30">
 
-        {/* Content main workspace containing our lazy-loaded page route views on the right */}
-        <main className="flex-1 relative z-10 overflow-y-auto">
-          {/* Inject route switcher matching path URL patterns */}
-          <AppRoutes />
-        </main>
+          {/* Render vertical responsive Sidebar navigation on the left */}
+          <Sidebar />
 
-      </div>
+          {/* Content main workspace containing our lazy-loaded page route views on the right */}
+          <main className="flex-1 relative z-10 overflow-y-auto">
+            {/* Inject route switcher matching path URL patterns */}
+            <AppRoutes />
+          </main>
+
+        </div>
+      </LeadsProvider>
 
       {/* Global toast notification provider — positioned top-right, dark themed */}
       <Toaster
