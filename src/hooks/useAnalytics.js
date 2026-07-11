@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useLeads } from '../context/LeadContext.jsx';
 import {
   getStatusDistribution,
@@ -27,7 +27,12 @@ import {
  * @returns {Object} All analytics datasets and KPI values
  */
 export function useAnalytics() {
-  const { leads = [] } = useLeads();
+  const { leads = [], fetchLeads } = useLeads();
+
+  // Fetch leads on mount if navigating directly to analytics
+  useEffect(() => {
+    fetchLeads();
+  }, [fetchLeads]);
 
   /** ── Summary KPIs ── */
   const totalLeads = useMemo(() => leads.length, [leads]);

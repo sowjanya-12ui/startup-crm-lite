@@ -1,9 +1,10 @@
+
 import mongoose from 'mongoose';
 
 /**
  * Lead Schema definition
  */
-export const leadSchema = new mongoose.Schema(
+const leadSchema = new mongoose.Schema(
   {
     /**
      * The full name of the lead.
@@ -35,7 +36,7 @@ export const leadSchema = new mongoose.Schema(
       trim: true,
       match: [
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-        'Email must be a valid email address',
+        'Please add a valid email format',
       ],
     },
     /**
@@ -109,20 +110,11 @@ export const leadSchema = new mongoose.Schema(
   }
 );
 
-// Compound index on (owner, status) for fast filtered queries per user
+// Compound index on (owner, status) for fast filtered queries
 leadSchema.index({ owner: 1, status: 1 });
 
-// Compound index on (owner, createdAt) for date range filtering and monthly aggregations
-leadSchema.index({ owner: 1, createdAt: -1 });
-
-// Compound index on (owner, source) for source breakdown aggregations
-leadSchema.index({ owner: 1, source: 1 });
-
-// Index on email for fast uniqueness lookups
+// Index on email for fast lookups
 leadSchema.index({ email: 1 });
-
-// Text index on searchable fields for the /search autocomplete endpoint
-leadSchema.index({ name: 'text', company: 'text', email: 'text' });
 
 // Virtual field for lead age in days
 leadSchema.virtual('age').get(function () {
@@ -134,6 +126,8 @@ leadSchema.virtual('age').get(function () {
   
   return diffInDays >= 0 ? diffInDays : 0;
 });
+
+export { leadSchema };
 
 const Lead = mongoose.model('Lead', leadSchema);
 

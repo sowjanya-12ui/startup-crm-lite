@@ -3,14 +3,16 @@ import React, { useState } from 'react';
 // Import NavLink to build navigation links that automatically detect and style active states
 import { NavLink } from 'react-router-dom';
 // Import Lucide icons representing brand logo, sections, menu control, and status
-import { LayoutDashboard, Users, BarChart3, Menu, X, Shield } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, Menu, X, Shield, LogOut } from 'lucide-react';
 // Import the custom theme toggle switch
 import DarkModeToggle from './common/DarkModeToggle';
+import { useAuth } from '../context/AuthContext';
 
 // Define the Sidebar component definition
 export default function Sidebar() {
   // Declare component state to track whether mobile side drawer is open or closed
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { logout } = useAuth();
 
   // Helper method to retrieve tailwind classes for active/inactive links dynamically
   const getLinkClass = ({ isActive }) => {
@@ -110,6 +112,15 @@ export default function Sidebar() {
             <DarkModeToggle />
           </div>
 
+          {/* Logout Button */}
+          <button
+            onClick={logout}
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200 cursor-pointer"
+          >
+            <LogOut className="h-5 w-5" />
+            <span>Sign Out</span>
+          </button>
+
           {/* Green system status badge block */}
           <div className="flex items-center justify-center gap-2.5 rounded-xl border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-500/5 py-2.5 text-xs font-bold text-emerald-400 transition-colors duration-200">
             {/* Pulsing indicator bullet */}
@@ -197,7 +208,16 @@ export default function Sidebar() {
             </div>
 
             {/* Bottom Drawer elements containing status pill */}
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 transition-colors duration-200">
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 px-2 space-y-4 transition-colors duration-200">
+              {/* Logout Button */}
+              <button
+                onClick={logout}
+                className="flex w-full items-center gap-3 rounded-xl px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200 cursor-pointer"
+              >
+                <LogOut className="h-5 w-5" />
+                <span>Sign Out</span>
+              </button>
+
               <div className="flex items-center justify-center gap-2 rounded-lg border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-500/5 py-2 text-xs font-semibold text-emerald-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>Live System</span>
