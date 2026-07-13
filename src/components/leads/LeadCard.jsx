@@ -17,7 +17,7 @@ import StatusBadge from './StatusBadge';
  * @param {Object}   props.lead     - The lead data object to render.
  * @param {string}   props.lead.name    - Contact full name.
  * @param {string}   props.lead.company - Company name.
- * @param {string}   props.lead.email   - Email address.
+ * @param {string}   props.lead.email   -  Email address.
  * @param {string}   [props.lead.phone] - Phone number (optional).
  * @param {string}   props.lead.status  - Pipeline status string.
  * @param {Function} props.onEdit   - Callback invoked with the lead when Edit is clicked.
