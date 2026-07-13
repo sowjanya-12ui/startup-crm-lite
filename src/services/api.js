@@ -1,37 +1,44 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-// Create an Axios instance with the base URL from environment variables
+console.log('==============================');
+console.log('VITE_API_URL =', import.meta.env.VITE_API_URL);
+console.log('MODE =', import.meta.env.MODE);
+console.log('Current Origin =', window.location.origin);
+console.log('==============================');
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
-// Add a request interceptor to automatically attach the JWT token
+console.log('Axios Base URL =', api.defaults.baseURL);
+
 api.interceptors.request.use(
   (config) => {
+    console.log('Request URL:', config.baseURL + config.url);
+
     const token = localStorage.getItem('crm-token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-// Add a response interceptor to handle global errors (like 401 Unauthorized or Network Errors)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Check if error is due to unauthorized access (invalid/expired token)
+    console.error('Axios Error:', error);
+
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('crm-token');
-      // Redirect to login page. We use window.location as we are outside React Router context here.
       window.location.href = '/login';
-    } 
-    // Check for network errors (no response received)
-    else if (!error.response) {
+    } else if (!error.response) {
       toast.error('Cannot connect to server. Check your connection.');
     }
+
     return Promise.reject(error);
   }
 );
