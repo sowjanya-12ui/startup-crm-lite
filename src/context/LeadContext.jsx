@@ -15,7 +15,13 @@ export function LeadProvider({ children }) {
       const data = await leadService.getLeads(params);
       
       // Handle both array response and paginated object response
-      const fetchedLeads = Array.isArray(data) ? data : (data.leads || data.data || []);
+      const fetchedLeads = Array.isArray(data)
+  ? data
+  : (data.leads || data.data || []);
+
+console.log("Fetched Leads:", fetchedLeads);
+
+setLeads(fetchedLeads);
       setLeads(fetchedLeads);
       
       if (data.pagination) {
