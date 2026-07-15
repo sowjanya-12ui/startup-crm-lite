@@ -133,10 +133,15 @@ export default function LeadManagement() {
    */
   const handleDelete = async (id) => {
   try {
-    console.log("Deleting Lead ID:", id);
+    console.log("DELETE RECEIVED VALUE:", id);
+    console.log("DELETE VALUE TYPE:", typeof id);
+
+    if (!id) {
+      console.error("❌ ID IS EMPTY");
+      return;
+    }
 
     await deleteLead(id);
-
     await fetchLeads();
 
   } catch (error) {
