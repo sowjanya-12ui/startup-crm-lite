@@ -1,311 +1,535 @@
 // Import React and hooks for state management
 import React, { useState, useEffect } from 'react';
-// Import toast notification system from react-hot-toast
+
+// Import toast notification system
 import toast from 'react-hot-toast';
-// Import Lucide icons for toolbar and view toggle controls
-import { Search, Filter, Plus, X, LayoutGrid, List } from 'lucide-react';
+
+// Import Lucide icons
+import { Plus, X, LayoutGrid, List } from 'lucide-react';
+
 // Import theme hook
 import { useTheme } from '../context/ThemeContext';
 
-// Import modular lead sub-components
+// Import lead components
 import LeadForm from '../components/leads/LeadForm';
 import LeadCard from '../components/leads/LeadCard';
 import LeadTable from '../components/leads/LeadTable';
-// Import common UI components
+
+// Import common components
 import SearchBar from '../components/common/SearchBar';
 import FilterBar from '../components/common/FilterBar';
 import EmptyState from '../components/common/EmptyState';
+
+// Import context
 import { useLeads } from '../context/LeadContext';
 
-/**
- * Ordered list of CRM pipeline status filter options.
- * @type {string[]}
- */
-const STATUS_OPTIONS = ['All', 'New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Won', 'Lost'];
 
-// Initial leads removed since we fetch from backend
-
-/**
- * LeadManagement — The primary CRUD page for managing CRM leads.
- *
- * Features:
- * - **Search** by name or company (case-insensitive).
- * - **Filter** by pipeline status.
- * - **Toggle** between Card view and Table view.
- * - **Create / Edit** leads via a modal form dialog.
- * - **Delete** leads with confirmation toast.
- * - **Toast notifications** for all CRUD operations (react-hot-toast).
- *
- * @component
- * @returns {JSX.Element} The rendered LeadManagement page.
- */
 export default function LeadManagement() {
+
   const { isDarkMode } = useTheme();
 
-  // ---- State hooks ----
-  // Active leads array from context
-  const { leads, fetchLeads, addLead, updateLead, deleteLead, isLoading } = useLeads();
-  
+  const {
+    leads,
+    fetchLeads,
+    addLead,
+    updateLead,
+    deleteLead,
+    isLoading
+  } = useLeads();
+
+
+  // Fetch leads when page loads
   useEffect(() => {
     fetchLeads();
   }, [fetchLeads]);
-  // Search input value
+
+
+  // Search and filter states
   const [searchQuery, setSearchQuery] = useState('');
-  // Active filter state
+
   const [activeFilter, setActiveFilter] = useState('All');
-  // Modal visibility flag
+
+
+  // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // Currently selected lead for editing (null = create mode)
+
   const [selectedLead, setSelectedLead] = useState(null);
-  // View mode toggle: 'table' or 'card'
+
+
+  // View mode
   const [viewMode, setViewMode] = useState('table');
 
-  // ---- Derived data ----
-  // Filter leads by search query and active filter simultaneously
+
+
+  // Filter leads
   const filteredLeads = leads
-    .filter((lead) => activeFilter === 'All' || lead.status === activeFilter)
+    .filter(
+      (lead) =>
+        activeFilter === 'All' ||
+        lead.status === activeFilter
+    )
     .filter((lead) => {
+
       const query = searchQuery.toLowerCase();
+
       return (
-        lead.name.toLowerCase().includes(query) ||
-        lead.company.toLowerCase().includes(query) ||
-        lead.email.toLowerCase().includes(query)
+        (lead.name || '')
+          .toLowerCase()
+          .includes(query) ||
+
+        (lead.company || '')
+          .toLowerCase()
+          .includes(query) ||
+
+        (lead.email || '')
+          .toLowerCase()
+          .includes(query)
       );
     });
 
-  // ---- CRUD handlers ----
 
-  /**
-   * Opens the modal in Create mode (no pre-filled data).
-   */
+
+  // Open create modal
   const openCreateModal = () => {
+
     setSelectedLead(null);
+
     setIsModalOpen(true);
+
   };
 
-  /**
-   * Opens the modal in Edit mode with the selected lead pre-filled.
-   * @param {Object} lead - The lead to edit.
-   */
+
+
+  // Open edit modal
   const openEditModal = (lead) => {
+
     setSelectedLead(lead);
+
     setIsModalOpen(true);
+
   };
 
-  /**
-   * Closes the modal and resets selected lead.
-   */
+
+
+  // Close modal
   const closeModal = () => {
+
     setIsModalOpen(false);
+
     setSelectedLead(null);
+
   };
 
-  /**
-   * Handles form submission for both create and update operations.
-   * @param {Object} formData - The form field values from LeadForm.
-   */
+
+
+  // Create / Update lead
   const handleFormSubmit = async (formData) => {
-  try {
-    if (selectedLead) {
-      await updateLead(selectedLead._id, formData);
-    } else {
-      await addLead(formData);
+
+    try {
+
+      if (selectedLead) {
+
+        await updateLead(
+          selectedLead._id,
+          formData
+        );
+
+      } else {
+
+        await addLead(formData);
+
+      }
+
+
+      await fetchLeads();
+
+      closeModal();
+
+
+    } catch (error) {
+
+      console.error(
+        "Lead save error:",
+        error
+      );
+
     }
 
-    await fetchLeads();
-    closeModal();
-
-  } catch (error) {
-    console.error("Lead save error:", error);
-  }
-};
-  /**
-   * Clears all search and filter criteria.
-   */
-  const handleClearFilters = () => {
-    setSearchQuery('');
-    setActiveFilter('All');
   };
 
-  /**
-   * Deletes a lead by id and displays a red toast notification.
-   * @param {number|string} id - The id of the lead to remove.
-   */
-  
 
-  return (
-    // Outer page wrapper with dark background and responsive padding
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-8 text-gray-900 dark:text-white sm:px-6 lg:px-8 transition-colors duration-200">
+
+  // Clear filters
+  const handleClearFilters = () => {
+
+    setSearchQuery('');
+
+    setActiveFilter('All');
+
+  };
+
+
+
+  // DELETE FIXED FUNCTION
+  const handleDelete = async (id) => {
+
+    try {
+
+      console.log(
+        "DELETE RECEIVED VALUE:",
+        id
+      );
+
+
+      console.log(
+        "DELETE VALUE TYPE:",
+        typeof id
+      );
+
+
+      if (!id) {
+
+        console.error(
+          "❌ ID IS EMPTY"
+        );
+
+        return;
+
+      }
+
+
+      await deleteLead(id);
+
+
+      await fetchLeads();
+
+
+      toast.success(
+        "Lead deleted successfully"
+      );
+
+
+    } catch (error) {
+
+
+      console.error(
+        "Delete failed:",
+        error
+      );
+
+
+      toast.error(
+        "Failed to delete lead"
+      );
+
+    }
+
+  };  return (
+
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-8 text-gray-900 dark:text-white sm:px-6 lg:px-8">
+
       <div className="w-full">
 
-        {/* =============================================================== */}
-        {/* HEADER — Title, description, and Add Lead CTA                  */}
-        {/* =============================================================== */}
+
+        {/* HEADER */}
         <div className="flex flex-col justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-6 sm:flex-row sm:items-center">
+
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">
               Lead Management
             </h1>
+
+
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Create, view, edit, and track active business leads inside your pipeline.
             </p>
+
           </div>
-          {/* Primary CTA to open the Create Lead modal */}
+
+
+
           <button
             type="button"
             onClick={openCreateModal}
-            id="btn-add-lead"
-            className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500 hover:shadow-blue-500/35 transition-all duration-300 cursor-pointer"
+            className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white"
           >
-            <Plus className="h-4.5 w-4.5" />
-            <span>Add New Lead</span>
+
+            <Plus className="h-4 w-4" />
+
+            Add New Lead
+
           </button>
+
+
         </div>
 
-        {/* =============================================================== */}
-        {/* TOOLBAR — Search, filter bar, and view toggle                   */}
-        {/* =============================================================== */}
-        <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm transition-colors duration-200">
-          {/* Search and filter row */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            {/* Search input with debouncing */}
-            <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-            {/* View toggle buttons — Card / Table */}
-            <div className="flex rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 p-0.5">
+
+
+        {/* SEARCH + VIEW */}
+        <div className="mt-6 rounded-2xl border bg-white dark:bg-gray-800 p-4">
+
+
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
+
+
+            <SearchBar
+              value={searchQuery}
+              onChange={setSearchQuery}
+            />
+
+
+
+            <div className="flex gap-2">
+
+
               <button
-                type="button"
+
                 onClick={() => setViewMode('table')}
-                className={`rounded-md p-1.5 transition-colors duration-200 cursor-pointer ${
-                  viewMode === 'table'
-                    ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm'
-                    : 'text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
-                }`}
-                aria-label="Table view"
-                title="Table view"
+
+                className="rounded-lg border p-2"
+
               >
+
                 <List className="h-4 w-4" />
+
               </button>
+
+
+
               <button
-                type="button"
+
                 onClick={() => setViewMode('card')}
-                className={`rounded-md p-1.5 transition-colors duration-200 cursor-pointer ${
-                  viewMode === 'card'
-                    ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm'
-                    : 'text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
-                }`}
-                aria-label="Card view"
-                title="Card view"
+
+                className="rounded-lg border p-2"
+
               >
+
                 <LayoutGrid className="h-4 w-4" />
+
               </button>
+
+
             </div>
+
+
           </div>
 
-          {/* Filter bar with clickable buttons */}
-          <FilterBar
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-            leads={leads}
-          />
+
+
+          <div className="mt-4">
+
+            <FilterBar
+
+              activeFilter={activeFilter}
+
+              onFilterChange={setActiveFilter}
+
+              leads={leads}
+
+            />
+
+          </div>
+
+
         </div>
 
-        {/* =============================================================== */}
-        {/* RESULTS COUNT                                                  */}
-        {/* =============================================================== */}
-        <div className="mt-4 flex items-center justify-between">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Showing <span className="font-semibold text-gray-700 dark:text-gray-200">{filteredLeads.length}</span> of{' '}
-            <span className="font-semibold text-gray-700 dark:text-gray-200">{leads.length}</span> leads
-          </p>
-        </div>
 
-        {/* =============================================================== */}
-        {/* LEADS LIST — Conditional Card grid or Table view                */}
-        {/* =============================================================== */}
+
+
+
+        {/* COUNT */}
+
         <div className="mt-4">
-          {viewMode === 'card' ? (
-            // Card grid — 1 col mobile, 2 col tablet, 3 col desktop
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredLeads.length > 0 ? (
-                filteredLeads.map((lead) => (
-                  <LeadCard
-  key={lead._id}
-  lead={lead}
-  onEdit={openEditModal}
-  onDelete={() => handleDelete(lead._id)}
-/>
-                ))
-              ) : (
-                // Empty state for card view
-                <EmptyState
-                  hasFilters={searchQuery !== '' || activeFilter !== 'All'}
-                  onClearFilters={handleClearFilters}
-                />
-              )}
-            </div>
-          ) : (
-            // Table view
-            <>
-              {filteredLeads.length > 0 ? (
-                <LeadTable
-                  leads={filteredLeads}
-                  onEdit={openEditModal}
-                  onDelete={handleDelete}
-                />
-              ) : (
-                // Empty state for table view
-                <EmptyState
-                  hasFilters={searchQuery !== '' || activeFilter !== 'All'}
-                  onClearFilters={handleClearFilters}
-                />
-              )}
-            </>
-          )}
+
+          Showing {filteredLeads.length} of {leads.length} leads
+
         </div>
+
+
+
+
+
+        {/* LEADS DISPLAY */}
+
+        <div className="mt-4">
+
+
+          {viewMode === 'card' ? (
+
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+
+              {
+
+                filteredLeads.length > 0 ?
+
+
+                filteredLeads.map((lead) => (
+
+
+                  <LeadCard
+
+                    key={lead._id}
+
+                    lead={lead}
+
+                    onEdit={openEditModal}
+
+
+                    // FIXED DELETE
+                    onDelete={() => handleDelete(lead._id)}
+
+                  />
+
+
+                ))
+
+
+
+                :
+
+
+                <EmptyState
+
+                  hasFilters={
+                    searchQuery !== '' ||
+                    activeFilter !== 'All'
+                  }
+
+                  onClearFilters={handleClearFilters}
+
+                />
+
+
+              }
+
+
+            </div>
+
+
+
+          ) : (
+
+
+            filteredLeads.length > 0 ?
+
+
+            <LeadTable
+
+              leads={filteredLeads}
+
+              onEdit={openEditModal}
+
+
+              // FIXED DELETE
+              onDelete={(id) => handleDelete(id)}
+
+            />
+
+
+            :
+
+
+            <EmptyState
+
+              hasFilters={
+                searchQuery !== '' ||
+                activeFilter !== 'All'
+              }
+
+              onClearFilters={handleClearFilters}
+
+            />
+
+
+          )}
+
+
+        </div>
+
+
 
       </div>
 
-      {/* ================================================================= */}
-      {/* MODAL OVERLAY — Create / Edit Lead Form                          */}
-      {/* ================================================================= */}
+
+
+
+
+
+
+      {/* MODAL */}
+
+
       {isModalOpen && (
-        // Backdrop overlay with blur
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-xs"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="lead-modal-title"
-        >
-          {/* Modal container card */}
-          <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-2xl transition-colors duration-200 animate-in fade-in zoom-in duration-200">
-            {/* Modal header */}
-            <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
-              <h2 id="lead-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">
-                {selectedLead ? 'Edit Lead' : 'Create New Lead'}
+
+
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+
+
+          <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-gray-800 p-6">
+
+
+            <div className="flex justify-between">
+
+
+              <h2 className="text-xl font-bold">
+
+                {selectedLead
+                  ? "Edit Lead"
+                  : "Create New Lead"}
+
               </h2>
-              {/* Close button */}
+
+
+
               <button
-                type="button"
+
                 onClick={closeModal}
-                className="rounded-lg p-1 text-gray-400 dark:text-gray-500 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-white cursor-pointer"
-                aria-label="Close modal"
+
               >
+
                 <X className="h-5 w-5" />
+
               </button>
+
+
             </div>
 
-            {/* Render the dual-purpose LeadForm */}
+
+
             <div className="mt-5">
+
+
               <LeadForm
+
                 initialData={selectedLead}
+
                 onSubmit={handleFormSubmit}
+
                 onCancel={closeModal}
+
               />
+
+
             </div>
+
+
+
           </div>
+
+
         </div>
+
+
       )}
+
+
+
     </div>
+
   );
+
 }
