@@ -131,23 +131,7 @@ export default function LeadManagement() {
    * Deletes a lead by id and displays a red toast notification.
    * @param {number|string} id - The id of the lead to remove.
    */
-  const handleDelete = async (id) => {
-  try {
-    console.log("DELETE RECEIVED VALUE:", id);
-    console.log("DELETE VALUE TYPE:", typeof id);
-
-    if (!id) {
-      console.error("❌ ID IS EMPTY");
-      return;
-    }
-
-    await deleteLead(id);
-    await fetchLeads();
-
-  } catch (error) {
-    console.error("Delete failed:", error);
-  }
-};
+  
 
   return (
     // Outer page wrapper with dark background and responsive padding
@@ -245,11 +229,13 @@ export default function LeadManagement() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredLeads.length > 0 ? (
                 filteredLeads.map((lead) => (
-                  <LeadCard
-  key={lead._id}
-  lead={lead}
+                  <LeadTable
+  leads={filteredLeads}
   onEdit={openEditModal}
-  onDelete={() => handleDelete(lead._id)}
+  onDelete={(id) => {
+    console.log("TABLE SENT ID:", id);
+    handleDelete(id);
+  }}
 />
                 ))
               ) : (
