@@ -229,13 +229,11 @@ export default function LeadManagement() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredLeads.length > 0 ? (
                 filteredLeads.map((lead) => (
-                  <LeadTable
-  leads={filteredLeads}
+                  <LeadCard
+  key={lead._id}
+  lead={lead}
   onEdit={openEditModal}
-  onDelete={(id) => {
-    console.log("TABLE SENT ID:", id);
-    handleDelete(id);
-  }}
+  onDelete={() => handleDelete(lead._id)}
 />
                 ))
               ) : (
