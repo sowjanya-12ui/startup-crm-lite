@@ -78,7 +78,7 @@ export default function LeadCard({ lead, onEdit, onDelete }) {
         {/* Delete button */}
         <button
           type="button"
-          onClick={() => onDelete(lead.id)}
+          onClick={() => onDelete(lead._id)}
           className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 py-2 text-xs font-semibold text-gray-600 dark:text-gray-400 transition-all duration-200 hover:border-red-200 dark:hover:border-red-800 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-600 dark:hover:text-red-400 cursor-pointer"
           aria-label={`Delete lead ${lead.name}`}
         >
