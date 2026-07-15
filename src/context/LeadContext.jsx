@@ -22,7 +22,6 @@ export function LeadProvider({ children }) {
 console.log("Fetched Leads:", fetchedLeads);
 
 setLeads(fetchedLeads);
-      setLeads(fetchedLeads);
       
       if (data.pagination) {
         setPagination(data.pagination);

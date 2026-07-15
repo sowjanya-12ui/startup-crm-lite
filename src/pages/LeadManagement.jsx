@@ -105,20 +105,20 @@ export default function LeadManagement() {
    * @param {Object} formData - The form field values from LeadForm.
    */
   const handleFormSubmit = async (formData) => {
-    try {
-      if (selectedLead) {
-        // ---- UPDATE existing lead ----
-        await updateLead(selectedLead.id || selectedLead._id, formData);
-      } else {
-        // ---- CREATE new lead ----
-        await addLead(formData);
-      }
-      closeModal();
-    } catch (error) {
-      // Errors are already toasted in LeadContext
+  try {
+    if (selectedLead) {
+      await updateLead(selectedLead._id, formData);
+    } else {
+      await addLead(formData);
     }
-  };
 
+    await fetchLeads();
+    closeModal();
+
+  } catch (error) {
+    console.error("Lead save error:", error);
+  }
+};
   /**
    * Clears all search and filter criteria.
    */
@@ -132,8 +132,16 @@ export default function LeadManagement() {
    * @param {number|string} id - The id of the lead to remove.
    */
   const handleDelete = async (id) => {
-    console.log("Delete ID:", id);
+  try {
+    console.log("Deleting Lead ID:", id);
+
     await deleteLead(id);
+
+    await fetchLeads();
+
+  } catch (error) {
+    console.error("Delete failed:", error);
+  }
 };
 
   return (
@@ -233,11 +241,11 @@ export default function LeadManagement() {
               {filteredLeads.length > 0 ? (
                 filteredLeads.map((lead) => (
                   <LeadCard
-                    key={lead._id}
-                    lead={lead}
-                    onEdit={openEditModal}
-                    onDelete={handleDelete}
-                  />
+  key={lead._id}
+  lead={lead}
+  onEdit={openEditModal}
+  onDelete={() => handleDelete(lead._id)}
+/>
                 ))
               ) : (
                 // Empty state for card view
