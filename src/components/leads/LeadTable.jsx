@@ -49,7 +49,7 @@ export default function LeadTable({ leads = [], onEdit, onDelete }) {
             {leads.length > 0 ? (
               leads.map((lead) => (
                 <tr
-                  key={lead.id}
+                  key={lead._id}
                   className="group transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-900/40"
                 >
                   {/* Name cell — with avatar placeholder */}

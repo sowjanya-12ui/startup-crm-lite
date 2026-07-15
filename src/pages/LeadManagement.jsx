@@ -132,8 +132,9 @@ export default function LeadManagement() {
    * @param {number|string} id - The id of the lead to remove.
    */
   const handleDelete = async (id) => {
+    console.log("Delete ID:", id);
     await deleteLead(id);
-  };
+};
 
   return (
     // Outer page wrapper with dark background and responsive padding
@@ -232,7 +233,7 @@ export default function LeadManagement() {
               {filteredLeads.length > 0 ? (
                 filteredLeads.map((lead) => (
                   <LeadCard
-                    key={lead.id}
+                    key={lead._id}
                     lead={lead}
                     onEdit={openEditModal}
                     onDelete={handleDelete}
