@@ -8,7 +8,7 @@ import React from 'react';
  */
 const STATUS_STYLES = {
   'New':               'bg-slate-100    text-slate-600    border-slate-200    dark:bg-slate-900/60 dark:text-slate-300 dark:border-slate-700/50',
-  'Contacted':         'bg-blue-50      text-blue-700     border-blue-200     dark:bg-blue-950/40   dark:text-blue-400  dark:border-blue-800/50',
+  'Contacted':         'bg-blue-50      text-blue-700     border-blue-200     dark:bg-blue-950/40   dark:text-primary  dark:border-blue-800/50',
   'Meeting':           'bg-indigo-50    text-indigo-700   border-indigo-200   dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-800/50',
   'Meeting Scheduled': 'bg-indigo-50    text-indigo-700   border-indigo-200   dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-800/50',
   'Proposal':          'bg-amber-50     text-amber-700    border-amber-200    dark:bg-amber-950/40  dark:text-amber-400  dark:border-amber-800/50',
@@ -18,7 +18,7 @@ const STATUS_STYLES = {
 };
 
 /** Fallback style when status is unknown */
-const FALLBACK_STYLE = 'bg-gray-100 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700';
+const FALLBACK_STYLE = 'bg-surface text-text-secondary border-border-main   ';
 
 /**
  * StatusBadge — Renders a pill-shaped, colour-coded badge for a lead's

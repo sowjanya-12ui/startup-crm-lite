@@ -39,8 +39,8 @@ export default function FilterBar({ activeFilter, onFilterChange, leads }) {
             onClick={() => onFilterChange(filter)}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 cursor-pointer ${
               isActive
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500'
-                : 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
+                ? 'bg-primary text-white shadow-lg shadow-blue-500/25 hover:bg-primary'
+                : 'bg-surface  text-text-secondary  hover:bg-surface dark:hover:bg-surface hover:text-text-main dark:hover:text-white'
             }`}
             aria-label={`Filter by ${filter}`}
             aria-pressed={isActive}

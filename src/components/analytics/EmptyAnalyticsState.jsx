@@ -9,19 +9,19 @@ import { Link } from 'react-router-dom';
  */
 export default function EmptyAnalyticsState() {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-200 bg-white py-20 px-8 text-center shadow-sm">
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-border-main bg-surface py-20 px-8 text-center shadow-sm">
       {/* Icon container */}
       <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 mb-6">
-        <BarChart3 className="h-10 w-10 text-blue-500" />
+        <BarChart3 className="h-10 w-10 text-primary" />
       </div>
 
       {/* Heading */}
-      <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+      <h2 className="text-2xl font-bold text-text-main tracking-tight">
         No analytics available yet
       </h2>
 
       {/* Subtext */}
-      <p className="mt-3 max-w-md text-sm text-gray-500 leading-relaxed">
+      <p className="mt-3 max-w-md text-sm text-text-secondary leading-relaxed">
         Add your first lead to start tracking business performance —
         conversion rates, pipeline health, revenue trends, and more will
         appear here automatically.
@@ -30,7 +30,7 @@ export default function EmptyAnalyticsState() {
       {/* CTA */}
       <Link
         to="/leads"
-        className="mt-8 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500 transition-all duration-200"
+        className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:bg-primary transition-all duration-200"
       >
         Add Lead
       </Link>

@@ -13,13 +13,13 @@ function AppLayout() {
 
   return (
     <LeadProvider>
-      <div className="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen font-sans selection:bg-blue-500/30 transition-colors duration-200">
-        <div className="flex flex-col md:flex-row min-h-screen w-full bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200">
+      <div className="bg-background text-text-main min-h-screen font-sans selection:bg-primary/30 transition-colors duration-200">
+        <div className="flex flex-col md:flex-row min-h-screen w-full bg-background text-text-main transition-colors duration-200">
           
           {/* Render Sidebar only if user is logged in */}
           {token && <Sidebar />}
 
-          <main className="flex-1 relative z-10 overflow-y-auto bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+          <main className="flex-1 relative z-10 overflow-y-auto bg-background transition-colors duration-200">
             <AppRoutes />
           </main>
 

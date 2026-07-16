@@ -15,10 +15,10 @@ const LineTooltip = ({ active, payload, isDarkMode }) => {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 shadow-xl text-sm transition-colors duration-200">
-      <p className="font-semibold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide mb-1">{d.month}</p>
-      <p className="font-extrabold text-gray-900 dark:text-white">
-        {d.conversion}% <span className="font-normal text-gray-500 dark:text-gray-400">Conversion</span>
+    <div className="rounded-xl border border-border-main bg-surface px-4 py-3 shadow-xl text-sm transition-colors duration-200">
+      <p className="font-semibold text-text-secondary text-xs uppercase tracking-wide mb-1">{d.month}</p>
+      <p className="font-extrabold text-text-main">
+        {d.conversion}% <span className="font-normal text-text-secondary">Conversion</span>
       </p>
     </div>
   );
@@ -33,17 +33,17 @@ const LineChartCard = memo(function LineChartCard({ conversionByMonth = [] }) {
 
   if (!conversionByMonth.length) {
     return (
-      <div className="flex h-[340px] items-center justify-center rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-200">
-        <p className="text-sm text-gray-400 dark:text-gray-500">No conversion data yet</p>
+      <div className="flex h-[340px] items-center justify-center rounded-2xl border border-border-main bg-surface shadow-sm transition-colors duration-200">
+        <p className="text-sm text-text-secondary dark:text-text-secondary">No conversion data yet</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md transition-all duration-200">
+    <div className="rounded-2xl border border-border-main bg-surface p-6 shadow-sm hover:shadow-md transition-all duration-200">
       <div className="mb-5">
-        <h3 className="text-base font-bold text-gray-900 dark:text-white">Conversion Rate Trend</h3>
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Won / Total leads · last 6 months</p>
+        <h3 className="text-base font-bold text-text-main">Conversion Rate Trend</h3>
+        <p className="text-xs text-text-secondary dark:text-text-secondary mt-0.5">Won / Total leads · last 6 months</p>
       </div>
 
       <div className="h-60">

@@ -15,8 +15,8 @@ const RevenueTooltip = ({ active, payload, isDarkMode }) => {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 shadow-xl text-sm transition-colors duration-200">
-      <p className="font-semibold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide mb-1">{d.month} Revenue</p>
+    <div className="rounded-xl border border-border-main bg-surface px-4 py-3 shadow-xl text-sm transition-colors duration-200">
+      <p className="font-semibold text-text-secondary text-xs uppercase tracking-wide mb-1">{d.month} Revenue</p>
       <p className="font-extrabold text-emerald-600 dark:text-emerald-400">{formatCurrency(d.revenue)}</p>
     </div>
   );
@@ -31,8 +31,8 @@ const RevenueChartCard = memo(function RevenueChartCard({ revenueByMonth = [] })
 
   if (!revenueByMonth.length) {
     return (
-      <div className="flex h-[340px] items-center justify-center rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-200">
-        <p className="text-sm text-gray-400 dark:text-gray-500">No revenue data yet</p>
+      <div className="flex h-[340px] items-center justify-center rounded-2xl border border-border-main bg-surface shadow-sm transition-colors duration-200">
+        <p className="text-sm text-text-secondary dark:text-text-secondary">No revenue data yet</p>
       </div>
     );
   }
@@ -40,14 +40,14 @@ const RevenueChartCard = memo(function RevenueChartCard({ revenueByMonth = [] })
   const totalRevenue = revenueByMonth.reduce((s, m) => s + m.revenue, 0);
 
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md transition-all duration-200">
+    <div className="rounded-2xl border border-border-main bg-surface p-6 shadow-sm hover:shadow-md transition-all duration-200">
       <div className="flex items-start justify-between mb-5">
         <div>
-          <h3 className="text-base font-bold text-gray-900 dark:text-white">Revenue Analytics</h3>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Won deals · last 6 months</p>
+          <h3 className="text-base font-bold text-text-main">Revenue Analytics</h3>
+          <p className="text-xs text-text-secondary dark:text-text-secondary mt-0.5">Won deals · last 6 months</p>
         </div>
         <div className="text-right">
-          <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">6-month total</p>
+          <p className="text-xs text-text-secondary dark:text-text-secondary font-medium">6-month total</p>
           <p className="text-lg font-extrabold text-emerald-600 dark:text-emerald-450">{formatCurrency(totalRevenue)}</p>
         </div>
       </div>

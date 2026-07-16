@@ -226,22 +226,22 @@ export default function LeadManagement() {
 
   };  return (
 
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-8 text-gray-900 dark:text-white sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background px-4 py-8 text-text-main sm:px-6 lg:px-8">
 
       <div className="w-full">
 
 
         {/* HEADER */}
-        <div className="flex flex-col justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-4 border-b border-border-main pb-6 sm:flex-row sm:items-center">
 
           <div>
 
-            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-extrabold text-text-main">
               Lead Management
             </h1>
 
 
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-2 text-sm text-text-secondary">
               Create, view, edit, and track active business leads inside your pipeline.
             </p>
 
@@ -252,7 +252,7 @@ export default function LeadManagement() {
           <button
             type="button"
             onClick={openCreateModal}
-            className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white"
+            className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-white"
           >
 
             <Plus className="h-4 w-4" />
@@ -268,7 +268,7 @@ export default function LeadManagement() {
 
 
         {/* SEARCH + VIEW */}
-        <div className="mt-6 rounded-2xl border bg-white dark:bg-gray-800 p-4">
+        <div className="mt-6 rounded-2xl border bg-surface p-4">
 
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
@@ -461,7 +461,7 @@ export default function LeadManagement() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
 
 
-          <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-gray-800 p-6">
+          <div className="w-full max-w-lg rounded-2xl bg-surface p-6">
 
 
             <div className="flex justify-between">

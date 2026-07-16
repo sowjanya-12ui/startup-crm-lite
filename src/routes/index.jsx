@@ -12,13 +12,13 @@ const Register = lazy(() => import('../pages/Register'));
 
 function RouteLoader() {
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-center bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
+    <div className="flex min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-center bg-background text-text-main">
       <div className="flex flex-col items-center gap-4">
         <div className="relative h-12 w-12">
-          <div className="absolute inset-0 rounded-full border-4 border-blue-500/20"></div>
+          <div className="absolute inset-0 rounded-full border-4 border-primary/20"></div>
           <div className="absolute inset-0 rounded-full border-4 border-t-blue-500 animate-spin"></div>
         </div>
-        <span className="text-sm font-semibold tracking-wider text-gray-500 animate-pulse">
+        <span className="text-sm font-semibold tracking-wider text-text-secondary animate-pulse">
           Loading Workspace...
         </span>
       </div>

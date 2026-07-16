@@ -26,9 +26,9 @@ const SourceTooltip = ({ active, payload, isDarkMode }) => {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 shadow-xl text-sm transition-colors duration-200">
-      <p className="font-semibold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide mb-1">{d.source}</p>
-      <p className="font-extrabold text-gray-900 dark:text-white">{d.count} <span className="font-normal text-gray-500 dark:text-gray-400">Leads</span></p>
+    <div className="rounded-xl border border-border-main bg-surface px-4 py-3 shadow-xl text-sm transition-colors duration-200">
+      <p className="font-semibold text-text-secondary text-xs uppercase tracking-wide mb-1">{d.source}</p>
+      <p className="font-extrabold text-text-main">{d.count} <span className="font-normal text-text-secondary">Leads</span></p>
     </div>
   );
 };
@@ -42,8 +42,8 @@ const LeadSourceChart = memo(function LeadSourceChart({ leadSourceStats = [] }) 
 
   if (!leadSourceStats.length) {
     return (
-      <div className="flex h-[340px] items-center justify-center rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-200">
-        <p className="text-sm text-gray-400 dark:text-gray-500">No source data yet</p>
+      <div className="flex h-[340px] items-center justify-center rounded-2xl border border-border-main bg-surface shadow-sm transition-colors duration-200">
+        <p className="text-sm text-text-secondary dark:text-text-secondary">No source data yet</p>
       </div>
     );
   }
@@ -51,10 +51,10 @@ const LeadSourceChart = memo(function LeadSourceChart({ leadSourceStats = [] }) 
   const sorted = [...leadSourceStats].sort((a, b) => b.count - a.count);
 
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md transition-all duration-200">
+    <div className="rounded-2xl border border-border-main bg-surface p-6 shadow-sm hover:shadow-md transition-all duration-200">
       <div className="mb-5">
-        <h3 className="text-base font-bold text-gray-900 dark:text-white">Lead Sources</h3>
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Acquisition channel breakdown</p>
+        <h3 className="text-base font-bold text-text-main">Lead Sources</h3>
+        <p className="text-xs text-text-secondary dark:text-text-secondary mt-0.5">Acquisition channel breakdown</p>
       </div>
 
       <div className="h-64">

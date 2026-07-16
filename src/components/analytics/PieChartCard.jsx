@@ -13,12 +13,12 @@ const PieTooltip = ({ active, payload, isDarkMode }) => {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 shadow-xl text-sm transition-colors duration-200">
-      <p className="font-bold text-gray-800 dark:text-white mb-1">{d.name}</p>
-      <p className="text-gray-600 dark:text-gray-300">
-        <span className="font-extrabold text-gray-900 dark:text-white">{d.value}</span> Leads
+    <div className="rounded-xl border border-border-main bg-surface px-4 py-3 shadow-xl text-sm transition-colors duration-200">
+      <p className="font-bold text-text-main mb-1">{d.name}</p>
+      <p className="text-text-secondary">
+        <span className="font-extrabold text-text-main">{d.value}</span> Leads
       </p>
-      <p className="text-gray-400 dark:text-gray-500 text-xs mt-0.5">{d.percentage}% of total</p>
+      <p className="text-text-secondary dark:text-text-secondary text-xs mt-0.5">{d.percentage}% of total</p>
     </div>
   );
 };
@@ -47,18 +47,18 @@ const PieChartCard = memo(function PieChartCard({ statusDistribution = [], total
 
   if (!statusDistribution.length) {
     return (
-      <div className="flex h-[380px] items-center justify-center rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-200">
-        <p className="text-sm text-gray-400 dark:text-gray-500">No status data yet</p>
+      <div className="flex h-[380px] items-center justify-center rounded-2xl border border-border-main bg-surface shadow-sm transition-colors duration-200">
+        <p className="text-sm text-text-secondary dark:text-text-secondary">No status data yet</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md transition-all duration-200">
+    <div className="rounded-2xl border border-border-main bg-surface p-6 shadow-sm hover:shadow-md transition-all duration-200">
       {/* Header */}
       <div className="mb-5">
-        <h3 className="text-base font-bold text-gray-900 dark:text-white">Lead Status Distribution</h3>
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Pipeline stage breakdown</p>
+        <h3 className="text-base font-bold text-text-main">Lead Status Distribution</h3>
+        <p className="text-xs text-text-secondary dark:text-text-secondary mt-0.5">Pipeline stage breakdown</p>
       </div>
 
       {/* Chart */}
@@ -99,19 +99,19 @@ const PieChartCard = memo(function PieChartCard({ statusDistribution = [], total
         {statusDistribution.map((item) => (
           <div
             key={item.name}
-            className="flex items-center gap-2.5 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-750 px-3 py-2 transition-colors duration-200"
+            className="flex items-center gap-2.5 rounded-lg bg-background border border-border-main px-3 py-2 transition-colors duration-200"
           >
             <span
               className="h-2.5 w-2.5 shrink-0 rounded-full"
               style={{ backgroundColor: item.color }}
             />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+              <p className="truncate text-[10px] font-semibold uppercase tracking-wide text-text-secondary dark:text-text-secondary">
                 {item.name}
               </p>
-              <p className="text-sm font-bold text-gray-900 dark:text-white">
+              <p className="text-sm font-bold text-text-main">
                 {item.value}{' '}
-                <span className="text-xs font-normal text-gray-400 dark:text-gray-500">({item.percentage}%)</span>
+                <span className="text-xs font-normal text-text-secondary dark:text-text-secondary">({item.percentage}%)</span>
               </p>
             </div>
           </div>

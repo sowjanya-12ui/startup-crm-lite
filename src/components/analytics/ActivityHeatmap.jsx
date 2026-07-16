@@ -1,11 +1,11 @@
 import { memo, useState } from 'react';
 
 const INTENSITY_COLORS = [
-  'bg-gray-100',       // 0  — empty
+  'bg-surface',       // 0  — empty
   'bg-blue-100',       // 1  — low
   'bg-blue-200',       // 2
   'bg-blue-400',       // 3
-  'bg-blue-600',       // 4  — high
+  'bg-primary',       // 4  — high
 ];
 
 function getIntensity(count) {
@@ -26,8 +26,8 @@ const ActivityHeatmap = memo(function ActivityHeatmap({ activityHeatmap = [] }) 
 
   if (!activityHeatmap.length) {
     return (
-      <div className="flex h-[180px] items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <p className="text-sm text-gray-400">No activity data yet</p>
+      <div className="flex h-[180px] items-center justify-center rounded-2xl border border-border-main bg-surface shadow-sm">
+        <p className="text-sm text-text-secondary">No activity data yet</p>
       </div>
     );
   }
@@ -53,19 +53,19 @@ const ActivityHeatmap = memo(function ActivityHeatmap({ activityHeatmap = [] }) 
   const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div className="rounded-2xl border border-border-main bg-surface p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <h3 className="text-base font-bold text-gray-900">Activity Heatmap</h3>
-          <p className="text-xs text-gray-400 mt-0.5">Lead activity · last 90 days</p>
+          <h3 className="text-base font-bold text-text-main">Activity Heatmap</h3>
+          <p className="text-xs text-text-secondary mt-0.5">Lead activity · last 90 days</p>
         </div>
         {/* Legend */}
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-gray-400">Less</span>
+          <span className="text-[10px] text-text-secondary">Less</span>
           {INTENSITY_COLORS.map((cls, i) => (
-            <span key={i} className={`h-3 w-3 rounded-sm ${cls} border border-gray-200`} />
+            <span key={i} className={`h-3 w-3 rounded-sm ${cls} border border-border-main`} />
           ))}
-          <span className="text-[10px] text-gray-400">More</span>
+          <span className="text-[10px] text-text-secondary">More</span>
         </div>
       </div>
 
@@ -76,7 +76,7 @@ const ActivityHeatmap = memo(function ActivityHeatmap({ activityHeatmap = [] }) 
             {dayLabels.map((d, i) => (
               <div key={d} className="h-3 flex items-center">
                 {i % 2 === 1 && (
-                  <span className="text-[9px] text-gray-400 w-6 leading-none">{d.slice(0, 1)}</span>
+                  <span className="text-[9px] text-text-secondary w-6 leading-none">{d.slice(0, 1)}</span>
                 )}
                 {i % 2 === 0 && <span className="w-6" />}
               </div>
@@ -87,7 +87,7 @@ const ActivityHeatmap = memo(function ActivityHeatmap({ activityHeatmap = [] }) 
           {weeks.map((week, wi) => (
             <div key={wi} className="flex flex-col gap-0.5">
               {/* Month label */}
-              <span className="text-[9px] text-gray-400 h-4 leading-none">
+              <span className="text-[9px] text-text-secondary h-4 leading-none">
                 {monthLabels[wi]}
               </span>
               {/* Day cells */}
@@ -96,7 +96,7 @@ const ActivityHeatmap = memo(function ActivityHeatmap({ activityHeatmap = [] }) 
                 return (
                   <div
                     key={day.date}
-                    className={`h-3 w-3 rounded-sm ${INTENSITY_COLORS[intensity]} border border-gray-200 cursor-pointer transition-transform hover:scale-125`}
+                    className={`h-3 w-3 rounded-sm ${INTENSITY_COLORS[intensity]} border border-border-main cursor-pointer transition-transform hover:scale-125`}
                     onMouseEnter={() => setTooltip(day)}
                     onMouseLeave={() => setTooltip(null)}
                     title={`${day.date}: ${day.count} activities`}
@@ -110,10 +110,10 @@ const ActivityHeatmap = memo(function ActivityHeatmap({ activityHeatmap = [] }) 
 
       {/* Floating tooltip */}
       {tooltip && (
-        <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
-          <span className="font-semibold text-gray-700">{tooltip.date}</span>
+        <div className="mt-2 flex items-center gap-2 text-xs text-text-secondary">
+          <span className="font-semibold text-text-secondary">{tooltip.date}</span>
           <span>—</span>
-          <span className="font-bold text-gray-900">{tooltip.count} activities</span>
+          <span className="font-bold text-text-main">{tooltip.count} activities</span>
         </div>
       )}
     </div>

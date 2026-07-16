@@ -77,27 +77,27 @@ export default function Dashboard() {
 
   return (
     // Outer layout wrapper with dark background and responsive padding
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-8 text-gray-900 dark:text-white sm:px-6 lg:px-8 transition-colors duration-200">
+    <div className="min-h-screen bg-background px-4 py-8 text-text-main sm:px-6 lg:px-8 transition-colors duration-200">
       <div className="w-full">
 
         {/* =============================================================== */}
         {/* HEADER — Title, subtitle, and primary CTA                      */}
         {/* =============================================================== */}
-        <div className="flex flex-col justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-4 border-b border-border-main pb-6 sm:flex-row sm:items-center">
           <div>
             {/* Page heading */}
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            <h1 className="text-3xl font-extrabold tracking-tight text-text-main sm:text-4xl">
               CRM Dashboard
             </h1>
             {/* Subtitle */}
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-2 text-sm text-text-secondary">
               Real-time monitoring of your startup's sales pipeline and conversion analytics.
             </p>
           </div>
           {/* Header CTA — navigates to leads management */}
           <Link
             to="/leads"
-            className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500 hover:shadow-blue-500/35 transition-all duration-300"
+            className="flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:bg-primary hover:shadow-blue-500/35 transition-all duration-300"
           >
             <Plus className="h-4.5 w-4.5" />
             <span>Manage Leads</span>
@@ -126,17 +126,17 @@ export default function Dashboard() {
         <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
 
           {/* Pipeline Activity area chart (spans 2 of 3 columns on lg) */}
-          <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm lg:col-span-2 transition-colors duration-200">
-            <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-700 pb-4">
+          <div className="rounded-2xl border border-border-main bg-surface p-6 shadow-sm lg:col-span-2 transition-colors duration-200">
+            <div className="flex items-center justify-between border-b border-border-main pb-4">
               <div>
                 {/* Chart title */}
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white">Pipeline Activity</h2>
+                <h2 className="text-lg font-bold text-text-main">Pipeline Activity</h2>
                 {/* Chart description */}
-                <p className="text-xs text-gray-500 dark:text-gray-400">Total pipeline vs actual won deals (USD)</p>
+                <p className="text-xs text-text-secondary">Total pipeline vs actual won deals (USD)</p>
               </div>
               {/* Performance badge */}
-              <div className="flex items-center gap-2 rounded-lg bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-400">
-                <Activity className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+              <div className="flex items-center gap-2 rounded-lg bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 text-xs font-medium text-blue-700 dark:text-primary">
+                <Activity className="h-3.5 w-3.5 text-primary dark:text-primary" />
                 <span>Monthly Growth</span>
               </div>
             </div>

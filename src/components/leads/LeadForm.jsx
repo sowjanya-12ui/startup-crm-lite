@@ -98,8 +98,8 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
   // Shared Tailwind class string for all text inputs
   const inputBaseClass =
-    'mt-1.5 block w-full rounded-xl border bg-white dark:bg-gray-900 px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors focus:outline-none focus:ring-1';
-  const inputNormalBorder = 'border-gray-300 dark:border-gray-700 focus:border-blue-500 focus:ring-blue-500';
+    'mt-1.5 block w-full rounded-xl border bg-surface  px-3.5 py-2.5 text-sm text-text-main  placeholder-gray-400 dark:placeholder-gray-500 transition-colors focus:outline-none focus:ring-1';
+  const inputNormalBorder = 'border-border-main  focus:border-primary focus:ring-primary';
   const inputErrorBorder  = 'border-red-400 dark:border-red-500/50 focus:border-red-500 focus:ring-red-500';
 
   return (
@@ -108,7 +108,7 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Name field ---- */}
       <div>
-        <label htmlFor="lead-name" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <label htmlFor="lead-name" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
           Lead Name <span className="text-red-500">*</span>
         </label>
         <input
@@ -128,7 +128,7 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Company field ---- */}
       <div>
-        <label htmlFor="lead-company" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <label htmlFor="lead-company" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
           Company <span className="text-red-500">*</span>
         </label>
         <input
@@ -148,7 +148,7 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Email field ---- */}
       <div>
-        <label htmlFor="lead-email" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <label htmlFor="lead-email" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
           Email Address <span className="text-red-500">*</span>
         </label>
         <input
@@ -168,7 +168,7 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
 
       {/* ---- Phone field (optional) ---- */}
       <div>
-        <label htmlFor="lead-phone" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <label htmlFor="lead-phone" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
           Phone
         </label>
         <input
@@ -185,53 +185,53 @@ export default function LeadForm({ initialData = null, onSubmit, onCancel }) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* Status dropdown */}
         <div>
-          <label htmlFor="lead-status" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          <label htmlFor="lead-status" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
             Status
           </label>
           <select
             id="lead-status"
             value={formData.status}
             onChange={handleChange('status')}
-            className="mt-1.5 block w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3.5 py-2.5 text-sm text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="mt-1.5 block w-full rounded-xl border border-border-main bg-surface px-3.5 py-2.5 text-sm text-text-main transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           >
             {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s} className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">{s}</option>
+              <option key={s} value={s} className="bg-surface text-text-main">{s}</option>
             ))}
           </select>
         </div>
 
         {/* Source dropdown */}
         <div>
-          <label htmlFor="lead-source" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          <label htmlFor="lead-source" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
             Source
           </label>
           <select
             id="lead-source"
             value={formData.source}
             onChange={handleChange('source')}
-            className="mt-1.5 block w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3.5 py-2.5 text-sm text-gray-900 dark:text-white transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="mt-1.5 block w-full rounded-xl border border-border-main bg-surface px-3.5 py-2.5 text-sm text-text-main transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           >
             {SOURCE_OPTIONS.map((s) => (
-              <option key={s} value={s} className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">{s}</option>
+              <option key={s} value={s} className="bg-surface text-text-main">{s}</option>
             ))}
           </select>
         </div>
       </div>
 
       {/* ---- Action buttons ---- */}
-      <div className="mt-6 flex justify-end gap-3 border-t border-gray-200 dark:border-gray-700 pt-4">
+      <div className="mt-6 flex justify-end gap-3 border-t border-border-main pt-4">
         {/* Cancel / Close button */}
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+          className="rounded-xl border border-border-main bg-background px-4 py-2.5 text-sm font-semibold text-text-secondary hover:bg-surface dark:hover:bg-surface hover:text-text-main dark:hover:text-white transition-colors cursor-pointer"
         >
           Cancel
         </button>
         {/* Submit button — label adapts to mode */}
         <button
           type="submit"
-          className="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-500 transition-colors cursor-pointer"
+          className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-primary transition-colors cursor-pointer"
         >
           {isEditMode ? 'Update Lead' : 'Create Lead'}
         </button>

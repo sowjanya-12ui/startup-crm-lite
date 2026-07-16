@@ -24,23 +24,23 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-8">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="w-full max-w-md bg-surface rounded-2xl shadow-xl border border-border-main p-8">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Welcome Back</h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Sign in to access your CRM</p>
+          <h1 className="text-3xl font-bold tracking-tight text-text-main">Welcome Back</h1>
+          <p className="mt-2 text-sm text-text-secondary">Sign in to access your CRM</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="email">
+            <label className="block text-sm font-medium text-text-secondary mb-1" htmlFor="email">
               Email Address
             </label>
             <input
               id="email"
               type="email"
               required
-              className="w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-4 py-3 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+              className="w-full rounded-xl border border-border-main bg-background px-4 py-3 text-sm text-text-main focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
               placeholder="you@company.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -48,14 +48,14 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="password">
+            <label className="block text-sm font-medium text-text-secondary mb-1" htmlFor="password">
               Password
             </label>
             <input
               id="password"
               type="password"
               required
-              className="w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-4 py-3 text-sm text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+              className="w-full rounded-xl border border-border-main bg-background px-4 py-3 text-sm text-text-main focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -65,15 +65,15 @@ export default function Login() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             {isSubmitting ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-8 text-center text-sm text-text-secondary">
           Don't have an account?{' '}
-          <Link to="/register" className="font-semibold text-blue-600 hover:text-blue-500 transition-colors">
+          <Link to="/register" className="font-semibold text-primary hover:text-primary transition-colors">
             Sign up
           </Link>
         </p>

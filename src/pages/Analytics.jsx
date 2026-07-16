@@ -48,21 +48,21 @@ export default function Analytics() {
   } = useAnalytics();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-8 sm:px-6 lg:px-8 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="min-h-screen bg-background px-4 py-8 sm:px-6 lg:px-8 text-text-main transition-colors duration-200">
       <div className="w-full space-y-8">
 
         {/* ── Header ─────────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-4 border-b border-gray-200 dark:border-gray-700 pb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-b border-border-main pb-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 shadow-sm shadow-blue-200">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-sm shadow-blue-200">
                 <BarChart3 className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
+              <h1 className="text-2xl font-extrabold tracking-tight text-text-main sm:text-3xl">
                 Analytics Dashboard
               </h1>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 ml-12">
+            <p className="text-sm text-text-secondary ml-12">
               Track sales performance, conversion rates, and growth trends.
             </p>
           </div>

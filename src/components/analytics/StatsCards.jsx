@@ -6,17 +6,17 @@ import { formatCurrency } from '../../utils/analyticsHelpers.js';
 const KPICard = memo(function KPICard({ title, value, subtitle, icon: Icon, iconBg, iconColor, trend, trendLabel }) {
   const isPositive = trend >= 0;
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm hover:shadow-md transition-all duration-200">
+    <div className="rounded-2xl border border-border-main bg-surface p-5 shadow-sm hover:shadow-md transition-all duration-200">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{title}</span>
+        <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">{title}</span>
         <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${iconBg}`}>
           <Icon className={`h-4.5 w-4.5 ${iconColor}`} />
         </div>
       </div>
 
       <div className="mt-1">
-        <p className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-none">{value}</p>
-        {subtitle && <p className="text-xs text-gray-400 dark:text-gray-550 mt-1">{subtitle}</p>}
+        <p className="text-2xl font-extrabold text-text-main tracking-tight leading-none">{value}</p>
+        {subtitle && <p className="text-xs text-text-secondary mt-1">{subtitle}</p>}
       </div>
 
       {trendLabel !== undefined && (
@@ -52,7 +52,7 @@ export default function StatsCards({
       subtitle:   'All time',
       icon:       Users,
       iconBg:     'bg-blue-50 dark:bg-blue-950/40',
-      iconColor:  'text-blue-600 dark:text-blue-400',
+      iconColor:  'text-primary dark:text-primary',
       trendLabel: undefined,
     },
     {
