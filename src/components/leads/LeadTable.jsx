@@ -109,12 +109,12 @@ export default function LeadTable({ leads = [], onEdit, onDelete }) {
                       </button>
                       {/* Delete button */}
                       <button
-                        type="button"
-                        onClick={() => onDelete(lead.id)}
-                        className="rounded-lg p-1.5 text-gray-400 dark:text-gray-500 transition-all duration-200 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-600 dark:hover:text-red-400 cursor-pointer"
-                        aria-label={`Delete lead ${lead.name}`}
-                        title="Delete Lead"
-                      >
+  type="button"
+  onClick={() => onDelete && onDelete(lead._id)}
+  className="rounded-lg p-1.5 text-gray-400 dark:text-gray-500 transition-all duration-200 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-600 dark:hover:text-red-400 cursor-pointer"
+  aria-label={`Delete lead ${lead.name}`}
+  title="Delete Lead"
+>
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>

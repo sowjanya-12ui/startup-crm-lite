@@ -418,18 +418,10 @@ export default function LeadManagement() {
 
 
             <LeadTable
-
-              leads={filteredLeads}
-
-              onEdit={openEditModal}
-
-
-              // FIXED DELETE
-              onDelete={(id) => handleDelete(id)}
-
-            />
-
-
+  leads={filteredLeads}
+  onEdit={openEditModal}
+  onDelete={(id) => deleteLead(id).then(() => fetchLeads())}
+/>
             :
 
 

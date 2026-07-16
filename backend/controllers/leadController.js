@@ -74,7 +74,9 @@ export const getLeads = async (req, res, next) => {
     }
 
     // Always scope to the authenticated owner ─────────────────────────────────
-    const filter = {};
+    const filter = {
+  owner: req.user._id,
+};
     // Status filter ───────────────────────────────────────────────────────────
     if (status && status !== 'All') {
       filter.status = status;
