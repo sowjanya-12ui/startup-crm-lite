@@ -1,5 +1,4 @@
-// Import React for JSX compilation and component creation
-import React from 'react';
+import { useState, useEffect } from 'react';
 // Import Link from react-router-dom for header CTA navigation
 import { Link } from 'react-router-dom';
 // Import Recharts components for the pipeline activity area chart
@@ -8,56 +7,15 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Users, DollarSign, Award, TrendingUp, Plus, Activity } from 'lucide-react';
 // Import theme context
 import { useTheme } from '../context/ThemeContext';
+// Import API service
+import { leadService } from '../services/leadService';
+import { useLeads } from '../context/LeadContext';
 
 // Import modular dashboard sub-components
 import StatsCard from '../components/dashboard/StatsCard';
 import PipelineOverview from '../components/dashboard/PipelineOverview';
 import RecentLeads from '../components/dashboard/RecentLeads';
 import QuickActions from '../components/dashboard/QuickActions';
-
-/**
- * Sample monthly revenue data for the Pipeline Activity area chart.
- * Will be replaced with real API data in Phase 8.
- * @type {Array<{month: string, pipeline: number, won: number}>}
- */
-const monthlyData = [
-  { month: 'Jan', pipeline: 12000, won: 8000 },
-  { month: 'Feb', pipeline: 19000, won: 12000 },
-  { month: 'Mar', pipeline: 15000, won: 10000 },
-  { month: 'Apr', pipeline: 27000, won: 18000 },
-  { month: 'May', pipeline: 22000, won: 15000 },
-  { month: 'Jun', pipeline: 32000, won: 24000 },
-];
-
-/**
- * Sample leads data used across PipelineOverview and RecentLeads.
- * Will be replaced with real API data in Phase 8.
- * @type {Array<{id: number, name: string, company: string, value: string, status: string, date: string}>}
- */
-const sampleLeads = [
-  { id: 1, name: 'Sarah Connor',   company: 'Cyberdyne Systems', value: '$8,500',  status: 'Proposal',  date: 'Just now' },
-  { id: 2, name: 'Bruce Wayne',    company: 'Wayne Enterprises', value: '$25,000', status: 'Contacted', date: '2 hours ago' },
-  { id: 3, name: 'Tony Stark',     company: 'Stark Industries',  value: '$45,000', status: 'Won',       date: '5 hours ago' },
-  { id: 4, name: 'Clark Kent',     company: 'Daily Planet',      value: '$3,200',  status: 'New',       date: 'Yesterday' },
-  { id: 5, name: 'Diana Prince',   company: 'Themyscira Corp',   value: '$18,000', status: 'Contacted', date: '2 days ago' },
-  { id: 6, name: 'Peter Parker',   company: 'Parker Labs',       value: '$7,800',  status: 'New',       date: '3 days ago' },
-  { id: 7, name: 'Natasha Romanov',company: 'Red Room Inc',      value: '$12,500', status: 'Proposal',  date: '4 days ago' },
-  { id: 8, name: 'Steve Rogers',   company: 'Shield Global',     value: '$35,000', status: 'Won',       date: '5 days ago' },
-  { id: 9, name: 'Barry Allen',    company: 'Star Labs',         value: '$9,400',  status: 'New',       date: '6 days ago' },
-  { id: 10, name: 'Wanda Maximoff',company: 'Hex Corp',          value: '$6,200',  status: 'Lost',      date: '1 week ago' },
-];
-
-/**
- * KPI card configuration array.
- * Each entry maps to one StatsCard rendered in the top metrics grid.
- * @type {Array<{title: string, value: string, icon: React.ElementType, change: number, color: string}>}
- */
-const statsConfig = [
-  { title: 'Total Leads',     value: '1,248',   icon: Users,      change: 12.4, color: 'blue' },
-  { title: 'Conversion Rate', value: '18.6%',   icon: TrendingUp, change: 2.1,  color: 'indigo' },
-  { title: 'Pipeline Value',  value: '$92,400',  icon: DollarSign, change: 18.7, color: 'emerald' },
-  { title: 'Deals Closed',    value: '42',       icon: Award,      change: 8.3,  color: 'amber' },
-];
 
 /**
  * Dashboard — The primary landing page of Startup CRM Lite.
@@ -74,6 +32,53 @@ const statsConfig = [
  */
 export default function Dashboard() {
   const { isDarkMode } = useTheme();
+  const { leads, fetchLeads } = useLeads();
+  const [stats, setStats] = useState(null);
+  const [monthlyData, setMonthlyData] = useState([]);
+
+  useEffect(() => {
+    fetchLeads();
+    
+    // Fetch real stats from the backend
+    leadService.getLeadStats()
+      .then(res => {
+        if (res.success && res.data) {
+          setStats(res.data);
+        }
+      })
+      .catch(err => console.error("Failed to load stats", err));
+
+    // Fetch monthly stats from the backend
+    leadService.getMonthlyStats()
+      .then(res => {
+        if (res.success && res.data) {
+          // Map backend { month: 'Jan 2025', total, won } to expected chart format
+          setMonthlyData(res.data.map(m => ({
+            month: m.month.split(' ')[0], // Extracts 'Jan'
+            pipeline: m.total || 0,
+            won: m.won || 0
+          })));
+        }
+      })
+      .catch(err => console.error("Failed to load monthly stats", err));
+  }, [fetchLeads]);
+
+  const statsConfig = [
+    { title: 'Total Leads',     value: (stats?.totalLeads ?? 0).toLocaleString(),   icon: Users,      change: stats?.growthRate || 0, color: 'blue' },
+    { title: 'Conversion Rate', value: `${stats?.conversionRate ?? 0}%`,   icon: TrendingUp, change: 0,  color: 'indigo' },
+    { title: 'Pipeline Value',  value: '$0',  icon: DollarSign, change: 0, color: 'emerald' }, // No monetary value field currently supported
+    { title: 'Deals Closed',    value: (stats?.wonLeads ?? 0).toLocaleString(),       icon: Award,      change: 0,  color: 'amber' },
+  ];
+
+  // Map real leads array for the recent leads table
+  const recentLeads = leads.slice(0, 5).map(l => ({
+    id: l._id,
+    name: l.name,
+    company: l.company,
+    value: '-',
+    status: l.status,
+    date: new Date(l.createdAt).toLocaleDateString()
+  }));
 
   return (
     // Outer layout wrapper with dark background and responsive padding
@@ -190,9 +195,9 @@ export default function Dashboard() {
         {/* =============================================================== */}
         <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Pipeline status distribution bar */}
-          <PipelineOverview leads={sampleLeads} />
+          <PipelineOverview leads={recentLeads} />
           {/* Recent leads table */}
-          <RecentLeads leads={sampleLeads} />
+          <RecentLeads leads={recentLeads} />
         </div>
 
       </div>

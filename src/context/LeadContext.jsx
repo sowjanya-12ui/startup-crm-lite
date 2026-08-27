@@ -42,22 +42,28 @@ setLeads(fetchedLeads);
 
   const addLead = async (leadData) => {
     try {
-      const newLead = await leadService.createLead(leadData);
+      const response = await leadService.createLead(leadData);
+      const newLead = response.lead || response.data || response;
       setLeads((prev) => [newLead, ...prev]);
       toast.success('Lead added successfully!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to add lead');
+      const errRes = error.response?.data;
+      const msg = errRes?.errors?.[0]?.message || errRes?.message || 'Failed to add lead';
+      toast.error(msg);
       throw error;
     }
   };
 
   const updateLead = async (id, updates) => {
     try {
-      const updatedLead = await leadService.updateLead(id, updates);
+      const response = await leadService.updateLead(id, updates);
+      const updatedLead = response.data || response.lead || response;
       setLeads((prev) => prev.map((l) => (l.id === id || l._id === id ? updatedLead : l)));
       toast.success('Lead updated successfully!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to update lead');
+      const errRes = error.response?.data;
+      const msg = errRes?.errors?.[0]?.message || errRes?.message || 'Failed to update lead';
+      toast.error(msg);
       throw error;
     }
   };
