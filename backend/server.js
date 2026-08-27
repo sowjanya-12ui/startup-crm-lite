@@ -89,14 +89,13 @@ app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'));
  */
 const allowedOrigins = [
   ...new Set([
-    process.env.FRONTEND_URL,         // Configured per deployment (Vercel, Render, etc.)
-    'https://your-app.vercel.app',    // Hardcoded production fallback — update before go-live
+    process.env.FRONTEND_URL, // Primary production URL e.g. https://startup-crm-lite-eight.vercel.app
     ...(NODE_ENV === 'development'
-      ? ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000'] // Vite / CRA dev servers
+      ? ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000']
       : []
     ),
   ]),
-].filter(Boolean); // Strip undefined / empty strings
+].filter(Boolean);
 
 app.use(
   cors({
@@ -104,24 +103,33 @@ app.use(
      * Dynamic origin checker.
      * - Allows requests with no Origin header (curl, Postman, server-to-server).
      * - Allows origins that appear in the allowlist.
-     * - Rejects everything else with an explicit CORS error.
+     * - Allows any *.vercel.app subdomain to support Vercel preview deployments.
      *
      * @param {string|undefined} origin   - Request Origin header value
      * @param {Function}         callback - (err, allow) — pass null to allow
      */
     origin: (origin, callback) => {
-      // In development, allow any localhost port
-      if (NODE_ENV === 'development' && origin && origin.startsWith('http://localhost:')) {
+      // Allow no-origin requests (Postman, server-to-server, health checks)
+      if (!origin) return callback(null, true);
+
+      // Allow any localhost port in development
+      if (NODE_ENV === 'development' && origin.startsWith('http://localhost:')) {
         return callback(null, true);
       }
-      
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS: Origin '${origin}' is not allowed.`));
+
+      // Allow any *.vercel.app preview URL (covers all Vercel preview deployments)
+      if (origin.endsWith('.vercel.app')) {
+        return callback(null, true);
       }
+
+      // Allow explicitly configured origins
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      callback(new Error(`CORS: Origin '${origin}' is not allowed.`));
     },
-    credentials: true, // Required for cookies / Authorization headers
+    credentials: true,
   })
 );
 
