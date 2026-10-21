@@ -68,8 +68,9 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 2. Helmet — sets secure HTTP response headers (XSS, clickjacking, MIME, etc.)
-// ─────────────────────────────────────────────────────────────────────────────
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+}));
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 3. Morgan — HTTP request logging
